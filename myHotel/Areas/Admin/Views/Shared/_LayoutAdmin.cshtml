@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Admin</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/myHotel.styles.css" asp-append-version="true" />
+</head>
+<body>
+    @* <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Hotel Admin</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Back to Site</a>
+                    </li>
+                    <li class="nav-item">
+                        <form asp-area="SecureAccess" asp-controller="Account" asp-action="Logout" method="post">
+                            <button type="submit" class="btn btn-outline-light">Logout</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav> *@
+    <header class="bg-dark text-white p-3">
+        <div class="container">
+            <h3>Admin Panel</h3>
+            <nav class="d-flex align-items-center">
+                <a class="text-white me-3" href="/Admin/Dashboard">Dashboard</a>
+                <a class="text-white me-3" href="/Admin/Users">Users</a>
+                <a class="text-white me-3" href="/Admin/Roles">Roles</a>
+                <a class="text-white me-3" href="/Admin/AuditLogs">Audit Logs</a>
+                @* <a class="text-white" href="/SecureAccess/Account/Logout">Logout</a> *@
+                @* <form asp-area="SecureAccess" asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                    <button type="submit" class="btn text-white text-decoration-underline btn-link nav-link" style="display:inline; padding:0;">Logout</button>
+                </form> *@
+                <ul class="navbar-nav ms-auto">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <span class="nav-link text-secondary">Hello, @User.Identity.Name!</span>
+                        </li>
+                        <li class="nav-item">
+                            <form asp-area="SecureAccess" asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                                <button type="submit" class="btn text-white text-decoration-underline btn-link nav-link" style="display:inline; padding:0;">Logout</button>
+                            </form>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="SecureAccess" asp-controller="Account" asp-action="Login">Login</a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+    <main role="main" class="container my-4">
+        @RenderBody()
+    </main>
+
+
+
+    <footer class="footer bg-light text-center py-0 mt-5">
+        <span>© @DateTime.Now.Year - Admin Panel</span>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
