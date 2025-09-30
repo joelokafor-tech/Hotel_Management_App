@@ -98,7 +98,9 @@ namespace myHotel.Areas.SecureAccess.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    //await _signInManager.SignInAsync(user, isPersistent: false);
+                    // Instead, just redirect to login
+                    TempData["SuccessMessage"] = "Registration successful. Please log in with your new account.";
                     return RedirectToAction("Login", "Account", new { area = "SecureAccess" });
                 }
 

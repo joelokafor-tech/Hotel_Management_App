@@ -3,6 +3,20 @@
     ViewData["Title"] = "Login";
 }
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div id="alertMsg" class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div id="alertMsg" class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+
 <div class="card shadow-sm p-4" style="max-width: 400px; margin: auto;">
 
     @* <h2>Login</h2> *@
@@ -37,4 +51,16 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        setTimeout(function () {
+            var alertBox = document.getElementById("alertMsg");
+            if (alertBox) {
+                alertBox.style.transition = "opacity 0.5s ease";
+                alertBox.style.opacity = "0";
+                setTimeout(() => alertBox.remove(), 500);
+            }
+        }, 3000);
+    </script>
 }
+
+
